@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Marketing Digital — Gracia Autos 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap');
+  :root {
+    --rojo: #D91B1B; --negro: #0A0A0A; --gris-oscuro: #1A1A1A; --gris-medio: #2A2A2A;
+    --blanco: #F5F5F0; --amarillo: #F5C842; --verde: #2ECC71; --azul: #3498DB; --texto-gris: #999;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--negro); color: var(--blanco); overflow-x: hidden; }
+
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 80px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-logo span { color: var(--rojo); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-gris); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: white; }
+  .spacer { height: 56px; }
+
+  /* PORTADA */
+  .portada { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 80px; overflow: hidden; }
+  .portada::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(217,27,27,0.15) 0%, transparent 70%); }
+  .portada::after { content: 'GA'; position: absolute; bottom: -60px; right: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: 400px; font-weight: 900; color: rgba(255,255,255,0.02); line-height: 1; pointer-events: none; }
+  .tag { display: inline-block; background: var(--rojo); color: white; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 6px 16px; margin-bottom: 40px; width: fit-content; }
+  .portada h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(60px, 8vw, 120px); font-weight: 900; line-height: 0.9; text-transform: uppercase; margin-bottom: 40px; }
+  .portada h1 span { color: var(--rojo); display: block; }
+  .portada-meta { display: flex; gap: 60px; margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .portada-meta-item label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-gris); display: block; margin-bottom: 6px; }
+  .portada-meta-item span { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 600; }
+
+  /* SECCIONES */
+  .seccion { padding: 100px 80px; position: relative; }
+  .sep { height: 1px; background: linear-gradient(90deg, var(--rojo), transparent); margin: 0 80px; }
+  .seccion-header { margin-bottom: 60px; }
+  .seccion-num { font-family: 'Barlow Condensed', sans-serif; font-size: 80px; font-weight: 900; color: rgba(255,255,255,0.04); line-height: 1; margin-bottom: -20px; }
+  .seccion-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 900; text-transform: uppercase; line-height: 1; }
+  .seccion-titulo .acento { color: var(--rojo); }
+  .seccion-subtitulo { font-size: 16px; color: var(--texto-gris); margin-top: 12px; font-weight: 300; max-width: 700px; line-height: 1.7; }
+
+  /* KPI */
+  .kpi-grid { display: grid; gap: 2px; margin-bottom: 2px; }
+  .kpi-5 { grid-template-columns: repeat(5,1fr); }
+  .kpi-4 { grid-template-columns: repeat(4,1fr); }
+  .kpi-3 { grid-template-columns: repeat(3,1fr); }
+  .kpi-card { background: var(--gris-oscuro); padding: 36px 28px; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--rojo); }
+  .kpi-card.highlight { background: var(--rojo); }
+  .kpi-card.highlight::before { background: white; }
+  .kpi-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-gris); margin-bottom: 12px; }
+  .kpi-card.highlight .kpi-label { color: rgba(255,255,255,0.7); }
+  .kpi-valor { font-family: 'Barlow Condensed', sans-serif; font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+  .kpi-variacion { font-size: 13px; font-weight: 500; }
+  .kpi-desc { font-size: 12px; color: var(--texto-gris); margin-top: 8px; line-height: 1.5; }
+  .positivo { color: var(--verde); }
+  .negativo { color: var(--rojo); }
+  .neutro { color: var(--texto-gris); }
+
+  /* GLOSARIO */
+  .glosario-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+  .glosario-card { background: var(--gris-oscuro); padding: 28px 32px; border-left: 3px solid rgba(217,27,27,0.3); transition: border-color 0.2s; }
+  .glosario-card:hover { border-left-color: var(--rojo); }
+  .glosario-term { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 900; color: var(--rojo); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .glosario-nombre { font-size: 13px; font-weight: 600; color: var(--blanco); margin-bottom: 10px; letter-spacing: 0.5px; }
+  .glosario-def { font-size: 13px; color: var(--texto-gris); line-height: 1.7; }
+  .glosario-ejemplo { font-size: 12px; color: rgba(217,27,27,0.8); margin-top: 8px; font-style: italic; }
+
+  /* TABS */
+  .tabs-container { background: var(--gris-oscuro); }
+  .tabs-nav { display: flex; border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto; scrollbar-width: none; }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+  .tab-btn { flex-shrink: 0; padding: 18px 32px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--texto-gris); background: none; border: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: all 0.2s; white-space: nowrap; }
+  .tab-btn:hover { color: var(--blanco); }
+  .tab-btn.active { color: var(--blanco); border-bottom-color: var(--rojo); }
+  .tab-panel { display: none; padding: 40px; }
+  .tab-panel.active { display: block; }
+
+  /* CHART */
+  .chart-barras { display: flex; align-items: flex-end; gap: 12px; height: 260px; padding: 0 0 16px; }
+  .barra-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+  .barra-col-valor { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; }
+  .barra-col-barra { width: 100%; border-radius: 4px 4px 0 0; min-height: 4px; }
+  .barra-col-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--texto-gris); }
+  .barra-wrap { width: 100%; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+  .barra-fill { height: 100%; border-radius: 2px; }
+
+  /* TABLA */
+  .tabla-container { background: var(--gris-oscuro); overflow: hidden; }
+  .tabla-header { display: grid; padding: 16px 28px; background: rgba(217,27,27,0.15); border-bottom: 1px solid var(--rojo); }
+  .tabla-header span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-gris); font-weight: 600; }
+  .tabla-fila { display: grid; padding: 18px 28px; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: center; }
+  .tabla-fila:hover { background: rgba(255,255,255,0.03); }
+  .tabla-fila.padre { background: rgba(255,255,255,0.02); }
+  .tabla-fila.padre .nombre { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; }
+  .tabla-fila.hijo .nombre { font-size: 14px; color: var(--texto-gris); padding-left: 20px; }
+  .tabla-fila.hijo .nombre::before { content: '→'; margin-right: 8px; color: var(--rojo); }
+  .leads-num { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; }
+  .padre .leads-num { color: var(--amarillo); }
+
+  /* MES HIGHLIGHT */
+  .mes-highlight { background: rgba(217,27,27,0.06); border: 1px solid rgba(217,27,27,0.2); padding: 20px 24px; margin-bottom: 28px; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+  .mes-highlight-item label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-gris); display: block; margin-bottom: 4px; }
+  .mes-highlight-item span { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; }
+
+  /* INSIGHT */
+  .insight-box { background: rgba(217,27,27,0.08); border: 1px solid rgba(217,27,27,0.3); padding: 28px 32px; margin-top: 40px; }
+  .insight-box p { font-size: 15px; line-height: 1.8; }
+  .insight-box strong { color: var(--rojo); }
+
+  /* INFO BOX */
+  .info-box { background: rgba(52,152,219,0.08); border: 1px solid rgba(52,152,219,0.25); padding: 20px 28px; margin: 20px 0; }
+  .info-box p { font-size: 14px; line-height: 1.7; color: var(--texto-gris); }
+  .info-box strong { color: var(--azul); }
+
+  /* HALLAZGOS */
+  .hallazgos-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+  .hallazgo-card { background: var(--gris-oscuro); padding: 36px 32px; }
+  .hallazgo-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+  .hallazgo-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; line-height: 1.1; }
+  .hallazgo-desc { font-size: 14px; color: var(--texto-gris); line-height: 1.7; }
+  .hallazgo-num { font-family: 'Barlow Condensed', sans-serif; font-size: 56px; font-weight: 900; color: var(--rojo); line-height: 1; margin-top: 20px; }
+  .hallazgo-impacto { font-size: 13px; color: var(--texto-gris); margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .hallazgo-impacto strong { color: var(--amarillo); }
+
+  /* PLAN */
+  .plan-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; }
+  .plan-card { background: var(--gris-oscuro); padding: 36px 32px; border-left: 3px solid transparent; transition: border-color 0.3s; }
+  .plan-card:hover { border-left-color: var(--rojo); }
+  .plan-num { font-family: 'Barlow Condensed', sans-serif; font-size: 72px; font-weight: 900; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: -20px; }
+  .plan-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+  .plan-objetivo { font-size: 13px; color: var(--verde); margin-bottom: 16px; font-weight: 600; }
+  .plan-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .plan-items li { font-size: 14px; color: var(--texto-gris); line-height: 1.6; padding-left: 16px; position: relative; }
+  .plan-items li::before { content: '—'; position: absolute; left: 0; color: var(--rojo); }
+
+  /* CAMPAÑAS */
+  .campanas-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; }
+  .campana-card { background: var(--gris-medio); padding: 28px 32px; border-bottom: 3px solid transparent; transition: border-color 0.3s; }
+  .campana-card:hover { border-bottom-color: var(--rojo); }
+  .campana-nombre { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; }
+  .campana-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 12px; }
+  .campana-stat label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-gris); display: block; margin-bottom: 4px; }
+  .campana-stat span { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; }
+  .campana-nota { font-size: 13px; color: var(--texto-gris); line-height: 1.5; }
+
+  /* BADGES */
+  .badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; margin-bottom: 12px; font-weight: 700; }
+  .badge-verde { background: rgba(46,204,113,0.15); color: var(--verde); }
+  .badge-rojo { background: rgba(217,27,27,0.15); color: var(--rojo); }
+  .badge-amarillo { background: rgba(245,200,66,0.15); color: var(--amarillo); }
+  .badge-azul { background: rgba(52,152,219,0.15); color: var(--azul); }
+
+  /* CHARTS ROW */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .chart-box { background: var(--gris-oscuro); padding: 40px; }
+  .chart-box h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--texto-gris); }
+  .chart-box .chart-desc { font-size: 13px; color: var(--texto-gris); margin-bottom: 24px; line-height: 1.5; }
+
+  /* CIERRE */
+  .cierre { min-height: 60vh; display: flex; align-items: center; padding: 80px; background: var(--rojo); position: relative; overflow: hidden; }
+  .cierre::before { content: '470'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%); font-family: 'Barlow Condensed', sans-serif; font-size: 300px; font-weight: 900; color: rgba(0,0,0,0.1); line-height: 1; }
+  .cierre h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 6vw, 90px); font-weight: 900; text-transform: uppercase; line-height: 0.95; max-width: 800px; }
+  .cierre-sub { font-size: 18px; margin-top: 24px; opacity: 0.8; font-weight: 300; max-width: 500px; line-height: 1.6; }
+  .linea-datos { display: flex; gap: 2px; margin-top: 40px; }
+  .linea-dato { flex: 1; background: rgba(0,0,0,0.15); padding: 20px 24px; }
+  .linea-dato label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; display: block; margin-bottom: 6px; }
+  .linea-dato span { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 900; }
+
+  /* DIVIDER */
+  .divider-label { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--texto-gris); padding: 16px 0 12px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 24px; }
+
+  @media (max-width: 900px) {
+    .kpi-5, .kpi-4 { grid-template-columns: repeat(2,1fr); }
+    .campanas-grid, .hallazgos-grid, .plan-grid, .charts-row, .glosario-grid { grid-template-columns: 1fr; }
+    .seccion { padding: 60px 24px; }
+    .portada { padding: 60px 24px; }
+    .nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .sep { margin: 0 24px; }
+    .tab-btn { padding: 14px 18px; font-size: 13px; }
+    .tab-panel { padding: 24px; }
+    .mes-highlight { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Gracia <span>Autos</span></div>
+  <div class="nav-links">
+    <a href="#glosario">Glosario</a>
+    <a href="#resumen">Resumen</a>
+    <a href="#leads">Leads</a>
+    <a href="#google">Google</a>
+    <a href="#meta">Meta</a>
+    <a href="#instagram">Instagram</a>
+    <a href="#hallazgos">Hallazgos</a>
+    <a href="#plan">Plan Junio</a>
+  </div>
+</nav>
+<div class="spacer"></div>
+
+<!-- PORTADA -->
+<section class="portada">
+  <div class="tag">Reporte de Desempeño</div>
+  <h1>Marketing<br><span>Digital</span> 2026</h1>
+  <p style="font-size:18px; color:var(--texto-gris); max-width:560px; line-height:1.7; font-weight:300;">
+    Análisis completo de rendimiento enero–mayo 2026. Google Ads, Meta Ads, Instagram y fuentes de leads. Gracia Autos — Concesionario Mitsubishi y División Usados Bilbao.
+  </p>
+  <div class="portada-meta">
+    <div class="portada-meta-item"><label>Período</label><span>Ene — May 2026</span></div>
+    <div class="portada-meta-item"><label>Total Leads</label><span>1.391</span></div>
+    <div class="portada-meta-item"><label>Mejor Mes</label><span>Mayo — 470</span></div>
+    <div class="portada-meta-item"><label>Inversión Total</label><span>$16.2M CLP</span></div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- GLOSARIO -->
+<section class="seccion" id="glosario">
+  <div class="seccion-header">
+    <div class="seccion-num">00</div>
+    <h2 class="seccion-titulo">Glosario de <span class="acento">Términos</span></h2>
+    <p class="seccion-subtitulo">Antes de leer el reporte, acá están definidos todos los términos técnicos que aparecen a lo largo del documento. Si algo no está claro, este es el punto de referencia.</p>
+  </div>
+
+  <div class="divider-label">Métricas de rendimiento</div>
+  <div class="glosario-grid">
+    <div class="glosario-card">
+      <div class="glosario-term">CPL</div>
+      <div class="glosario-nombre">Costo por Lead</div>
+      <div class="glosario-def">Es cuánto dinero se gasta en publicidad para conseguir un lead (contacto). Se calcula dividiendo la inversión total por el número de leads obtenidos. Es la métrica más importante para medir la eficiencia de una campaña.</div>
+      <div class="glosario-ejemplo">Ej: Si se gastaron $100.000 y se obtuvieron 10 leads → CPL = $10.000</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">CPM</div>
+      <div class="glosario-nombre">Costo por Mil Impresiones</div>
+      <div class="glosario-def">Cuánto cuesta mostrar el anuncio a 1.000 personas. Se usa principalmente para medir la eficiencia de campañas de awareness (alcance). Un CPM bajo significa que se llega a más personas con menos dinero.</div>
+      <div class="glosario-ejemplo">Ej: CPM $500 = cuesta $500 llegar a 1.000 personas</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">CPC</div>
+      <div class="glosario-nombre">Costo por Clic</div>
+      <div class="glosario-def">Cuánto cuesta cada vez que alguien hace clic en el anuncio. Es relevante en campañas de Google Search donde se paga por clic. Un CPC bajo con buena conversión es señal de campaña eficiente.</div>
+      <div class="glosario-ejemplo">Ej: CPC $200 = se pagan $200 cada vez que alguien hace clic</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">CTR</div>
+      <div class="glosario-nombre">Click Through Rate</div>
+      <div class="glosario-def">Porcentaje de personas que vieron el anuncio y hicieron clic. Mide qué tan atractivo y relevante es el anuncio para la audiencia. Un CTR alto indica que el mensaje resuena con quien lo ve.</div>
+      <div class="glosario-ejemplo">Ej: 1.000 impresiones, 50 clics → CTR = 5%</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Conv.</div>
+      <div class="glosario-nombre">Conversión</div>
+      <div class="glosario-def">Una acción valiosa que el usuario realiza después de ver el anuncio — en nuestro caso, llenar el formulario de contacto del sitio web. Es el objetivo final de las campañas de leads.</div>
+      <div class="glosario-ejemplo">Ej: Alguien hace clic en el anuncio, llega a la web y envía el formulario = 1 conversión</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">LCR</div>
+      <div class="glosario-nombre">Lead Conversion Rate / Tiempo de Respuesta</div>
+      <div class="glosario-def">En este reporte, el LCR representa el tiempo promedio en horas que demora el equipo en responder a un lead. Un LCR bajo (cercano a 0) indica respuesta casi inmediata. Un LCR alto indica demora en la atención.</div>
+      <div class="glosario-ejemplo">Ej: LCR 4.5 = en promedio se tarda 4.5 horas en responder</div>
+    </div>
+  </div>
+
+  <div class="divider-label">Tipos de campaña y canales</div>
+  <div class="glosario-grid">
+    <div class="glosario-card">
+      <div class="glosario-term">Search</div>
+      <div class="glosario-nombre">Campaña de Búsqueda (Google)</div>
+      <div class="glosario-def">Anuncios que aparecen cuando alguien busca algo específico en Google. Son los más efectivos para capturar intención de compra activa — la persona ya está buscando el producto. Se paga por clic (CPC).</div>
+      <div class="glosario-ejemplo">Ej: Alguien busca "Mitsubishi Destinator precio Chile" y aparece nuestro anuncio</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">PMax</div>
+      <div class="glosario-nombre">Performance Max (Google)</div>
+      <div class="glosario-def">Tipo de campaña de Google que utiliza inteligencia artificial para mostrar anuncios en todos los canales de Google (Search, YouTube, Display, Gmail, Maps) automáticamente. Es buena para escalar volumen pero requiere tiempo de aprendizaje.</div>
+      <div class="glosario-ejemplo">Ej: PMax SUV muestra anuncios en Google Search, YouTube y Display buscando compradores de SUV</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Awareness</div>
+      <div class="glosario-nombre">Campaña de Reconocimiento de Marca</div>
+      <div class="glosario-def">Campaña cuyo objetivo es mostrar contenido (generalmente video) a la mayor cantidad de personas posible para que conozcan la marca. No busca conversión directa — genera demanda futura y calienta audiencias para retargeting.</div>
+      <div class="glosario-ejemplo">Ej: Video de "Cómo se compra un Mitsubishi" mostrado a 390.000 personas en Meta</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Retargeting</div>
+      <div class="glosario-nombre">Reimpacto a audiencias calientes</div>
+      <div class="glosario-def">Mostrar anuncios específicamente a personas que ya interactuaron previamente con el contenido (vieron un video, visitaron el sitio web, etc.). Es más eficiente que la prospección fría porque ya hay un interés previo demostrado.</div>
+      <div class="glosario-ejemplo">Ej: Leads Videos impacta a personas que ya vieron videos de Mitsubishi</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">E-Commerce</div>
+      <div class="glosario-nombre">Portales de venta externa</div>
+      <div class="glosario-def">En este contexto, se refiere a los portales de clasificados automotrices donde Gracia Autos publica sus vehículos usados — Chile Autos y Mercado Libre. Generan leads de forma independiente de las campañas de Google y Meta.</div>
+      <div class="glosario-ejemplo">Ej: Chile Autos Bilbao generó 114 leads en mayo sin inversión publicitaria directa</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Brand</div>
+      <div class="glosario-nombre">Campaña de Marca</div>
+      <div class="glosario-def">Campaña de Google Search que aparece cuando alguien busca directamente el nombre de la marca (Mitsubishi, Gracia Autos). Captura a usuarios con alta intención de compra que ya conocen la marca. Suele tener el CPL más bajo.</div>
+      <div class="glosario-ejemplo">Ej: Búsqueda "Mitsubishi Chile" activa la campaña Brand Mitsubishi SUV</div>
+    </div>
+  </div>
+
+  <div class="divider-label">Conceptos técnicos</div>
+  <div class="glosario-grid">
+    <div class="glosario-card">
+      <div class="glosario-term">Pixel</div>
+      <div class="glosario-nombre">Píxel de seguimiento (Meta)</div>
+      <div class="glosario-def">Un código pequeño instalado en el sitio web que le comunica a Meta qué hacen los usuarios después de ver un anuncio. Permite medir conversiones, crear audiencias personalizadas y optimizar las campañas hacia los objetivos correctos.</div>
+      <div class="glosario-ejemplo">Ej: El Gracia-Autos Pixel detecta cuando alguien llega a /formulario-enviado y lo cuenta como conversión</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Evento</div>
+      <div class="glosario-nombre">Evento de Conversión</div>
+      <div class="glosario-def">Una acción específica en el sitio web que el pixel registra como valiosa. En Gracia Autos tenemos "Mitsubishi Solicitud" y "Usados Solicitud" — ambos se activan cuando alguien llega a la página de confirmación después de enviar el formulario.</div>
+      <div class="glosario-ejemplo">Ej: Usados Solicitud se activa cuando la URL contiene "formulario-enviado"</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Aprendizaje</div>
+      <div class="glosario-nombre">Fase de Aprendizaje (Meta)</div>
+      <div class="glosario-def">Período inicial de una campaña nueva (7-14 días o 50 conversiones) en que Meta está analizando a quién mostrarle el anuncio. Durante este período los resultados son inconsistentes y el CPL puede ser muy alto. No se deben hacer cambios en este período.</div>
+      <div class="glosario-ejemplo">Ej: Las campañas de Usados lanzadas el 12/05 estuvieron en aprendizaje durante mayo</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Ad Set</div>
+      <div class="glosario-nombre">Conjunto de Anuncios</div>
+      <div class="glosario-def">Nivel intermedio de la estructura publicitaria en Meta: Campaña → Ad Set → Ad. El Ad Set define la audiencia, el presupuesto, la programación y los placements. Dentro de un Ad Set puede haber uno o varios anuncios.</div>
+      <div class="glosario-ejemplo">Ej: La campaña AO Mitsubishi tiene 4 ad sets: Destinator, L200, SUV y Leads Videos</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Dynamic Creative</div>
+      <div class="glosario-nombre">Creativo Dinámico</div>
+      <div class="glosario-def">Función de Meta que mezcla automáticamente distintas versiones de imágenes, textos y CTAs para encontrar la combinación más efectiva. Puede mejorar el rendimiento pero quita control sobre los formatos por placement y puede inflar el CPL.</div>
+      <div class="glosario-ejemplo">Ej: El ad set L200 tenía Dynamic Creative ON en abril → se recreó en mayo con OFF</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">CLP</div>
+      <div class="glosario-nombre">Peso Chileno</div>
+      <div class="glosario-def">Moneda en que se expresan todos los valores monetarios de este reporte. Toda la inversión publicitaria, CPL, CPM y CPC están en pesos chilenos (CLP). Los valores se muestran abreviados: $1M = $1.000.000 CLP.</div>
+      <div class="glosario-ejemplo">Ej: $8.029 CLP = lo que cuesta en promedio conseguir un lead en mayo</div>
+    </div>
+  </div>
+
+  <div class="divider-label">Términos del negocio</div>
+  <div class="glosario-grid">
+    <div class="glosario-card">
+      <div class="glosario-term">Lead</div>
+      <div class="glosario-nombre">Prospecto / Contacto</div>
+      <div class="glosario-def">Una persona que demostró interés en comprar un auto y dejó sus datos de contacto. En Gracia Autos, un lead es cualquier persona que llenó el formulario del sitio web, escribió por Chile Autos, Mercado Libre, llegó al showroom o contactó por Instagram.</div>
+      <div class="glosario-ejemplo">Ej: Alguien que llena el formulario del Destinator en la web = 1 lead de Mitsubishi</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Funnel</div>
+      <div class="glosario-nombre">Embudo de Ventas</div>
+      <div class="glosario-def">El recorrido que hace una persona desde que no conoce la marca hasta que compra. Tiene 3 etapas: Awareness (conoce la marca) → Consideración (evalúa opciones) → Conversión (decide y contacta). Cada campaña atiende una etapa diferente.</div>
+      <div class="glosario-ejemplo">Ej: Awareness → ve video → entra al sitio → llena formulario → lead → venta</div>
+    </div>
+    <div class="glosario-card">
+      <div class="glosario-term">Alcance</div>
+      <div class="glosario-nombre">Reach</div>
+      <div class="glosario-def">El número de personas únicas que vieron el anuncio o contenido. Diferente de impresiones, que cuenta cuántas veces se mostró (una persona puede ver el mismo anuncio varias veces). El alcance mide cobertura real de audiencia.</div>
+      <div class="glosario-ejemplo">Ej: Awareness Mitsubishi mayo alcanzó 496.873 personas únicas</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- RESUMEN EJECUTIVO -->
+<section class="seccion" id="resumen">
+  <div class="seccion-header">
+    <div class="seccion-num">01</div>
+    <h2 class="seccion-titulo">Resumen <span class="acento">Ejecutivo</span></h2>
+    <p class="seccion-subtitulo">Visión completa del período enero–mayo 2026. Cada mes refleja decisiones estratégicas concretas que se ven en los números. Mayo rompe todos los récords anteriores con 470 leads — un 108% más que el peor mes del año.</p>
+  </div>
+
+  <div class="kpi-grid kpi-5" style="margin-bottom:2px;">
+    <div class="kpi-card highlight">
+      <div class="kpi-label">Leads Mayo 2026</div>
+      <div class="kpi-valor">470</div>
+      <div class="kpi-variacion">↑ +58.2% vs Abril</div>
+      <div class="kpi-desc">Mejor mes del año. Primera medición completa con Pilot CRM.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Leads Ene–May</div>
+      <div class="kpi-valor">1.391</div>
+      <div class="kpi-variacion positivo">Promedio: 278/mes</div>
+      <div class="kpi-desc">Mayo tiene 59% más leads que el promedio del período.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CPL Mayo</div>
+      <div class="kpi-valor">$8.029</div>
+      <div class="kpi-variacion positivo">↓ 32% vs Marzo ($15.685)</div>
+      <div class="kpi-desc">El costo por lead mejoró significativamente al corregir los errores de configuración.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Inversión Mayo</div>
+      <div class="kpi-valor">$3.77M</div>
+      <div class="kpi-variacion neutro">Google $2.27M / Meta $1.50M</div>
+      <div class="kpi-desc">60% Google, 40% Meta — distribución más equilibrada.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Inversión Total</div>
+      <div class="kpi-valor">$16.2M</div>
+      <div class="kpi-variacion neutro">Ene–May 2026</div>
+      <div class="kpi-desc">CPL promedio del período: $11.639 CLP.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--gris-oscuro); padding:40px; margin-bottom:2px;">
+    <h3 style="font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--texto-gris); margin-bottom:8px;">Evolución Mensual de Leads</h3>
+    <p style="font-size:13px; color:var(--texto-gris); margin-bottom:28px; line-height:1.6;">Cada barra representa el total de leads del mes. El número debajo de la barra es el CPL real (inversión total ÷ leads). Un CPL más bajo con más leads es la combinación ideal.</p>
+    <div class="chart-barras" id="chartGeneral"></div>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tabs-nav">
+      <button class="tab-btn" onclick="cambiarTab('resumen','ene')">Enero</button>
+      <button class="tab-btn" onclick="cambiarTab('resumen','feb')">Febrero</button>
+      <button class="tab-btn" onclick="cambiarTab('resumen','mar')">Marzo</button>
+      <button class="tab-btn" onclick="cambiarTab('resumen','abr')">Abril</button>
+      <button class="tab-btn active" onclick="cambiarTab('resumen','may')">Mayo ★</button>
+    </div>
+
+    <div class="tab-panel" id="resumen-ene">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Leads</label><span>226</span></div>
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$2.89M</span></div>
+        <div class="mes-highlight-item"><label>CPL real</label><span>$12.806</span></div>
+        <div class="mes-highlight-item"><label>Google</label><span>$1.88M</span></div>
+        <div class="mes-highlight-item"><label>Meta</label><span>$1.01M</span></div>
+      </div>
+      <p style="font-size:15px; color:var(--texto-gris); line-height:1.8; margin-bottom:16px;">Mes de arranque del año con 226 leads. Sin campañas de awareness activas en Meta — todo el presupuesto Meta iba a conversión y tráfico. Meta Usados ya estaba corriendo con objetivo de tráfico en lugar de leads, error que se mantendría durante 4 meses.</p>
+      <div class="info-box"><p><strong>Punto de partida:</strong> Google genera la gran mayoría de los leads. Meta contribuye a Mitsubishi pero el presupuesto de usados en Meta ($347.981) se gasta en visitas al sitio, no en leads reales. El CPL de $12.806 es alto porque se está pagando por mucho tráfico que no convierte.</p></div>
+    </div>
+
+    <div class="tab-panel" id="resumen-feb">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Leads</label><span style="color:var(--rojo);">185</span></div>
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$2.71M</span></div>
+        <div class="mes-highlight-item"><label>CPL real</label><span style="color:var(--rojo);">$14.652</span></div>
+        <div class="mes-highlight-item"><label>Google</label><span>$1.93M</span></div>
+        <div class="mes-highlight-item"><label>Meta</label><span>$772K</span></div>
+      </div>
+      <p style="font-size:15px; color:var(--texto-gris); line-height:1.8; margin-bottom:16px;">Peor mes del año con solo 185 leads a pesar de ser el segundo mes del año. Se implementaron por primera vez las campañas de awareness en Meta para Mitsubishi y Usados, lo que agregó $246K de inversión que no genera leads directos sino alcance. Eso diluyó el CPL general.</p>
+      <div class="info-box"><p><strong>Por qué bajaron los leads con similar inversión:</strong> Las campañas de awareness no generan leads directos — su objetivo es llegar a muchas personas. Eso es inversión correcta para el funnel largo, pero en el corto plazo el CPL sube porque se gasta más sin convertir más.</p></div>
+    </div>
+
+    <div class="tab-panel" id="resumen-mar">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Leads</label><span>213</span></div>
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$3.34M</span></div>
+        <div class="mes-highlight-item"><label>CPL real</label><span style="color:var(--rojo);">$15.685</span></div>
+        <div class="mes-highlight-item"><label>Google</label><span>$2.06M</span></div>
+        <div class="mes-highlight-item"><label>Meta</label><span>$1.27M</span></div>
+      </div>
+      <p style="font-size:15px; color:var(--texto-gris); line-height:1.8; margin-bottom:16px;">La inversión creció significativamente ($3.34M) pero los leads solo subieron levemente a 213. El CPL alcanzó su peor punto del año en $15.685. El problema: más presupuesto en Meta Usados (tráfico sin conversión) y en campañas de Google con bajo rendimiento como Search Cotizador.</p>
+      <div class="info-box"><p><strong>La trampa del presupuesto sin dirección:</strong> Gastar más no garantiza más leads si el presupuesto va a las campañas equivocadas. Marzo es el ejemplo más claro — mayor inversión, peor eficiencia. Esto evidencia la necesidad de redistribuir, no solo aumentar.</p></div>
+    </div>
+
+    <div class="tab-panel" id="resumen-abr">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Leads</label><span>297</span></div>
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$3.52M</span></div>
+        <div class="mes-highlight-item"><label>CPL real</label><span>$11.855</span></div>
+        <div class="mes-highlight-item"><label>Google</label><span>$2.14M</span></div>
+        <div class="mes-highlight-item"><label>Meta</label><span>$1.37M</span></div>
+      </div>
+      <p style="font-size:15px; color:var(--texto-gris); line-height:1.8; margin-bottom:16px;">Primer mes fuerte del año con 297 leads. La mejora viene de Google — mejor distribución del presupuesto hacia Destinator y Brand. Meta Mitsubishi también mejoró con 108 leads a $5.777 CPL. Meta Usados sigue en tráfico por última vez.</p>
+      <div class="info-box"><p><strong>Qué cambió:</strong> Mejora en la distribución del presupuesto Google y mejor rendimiento de Meta Mitsubishi. Abril confirma que el sistema funciona cuando el presupuesto está bien alineado con las campañas ganadoras.</p></div>
+    </div>
+
+    <div class="tab-panel active" id="resumen-may">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Leads</label><span style="color:var(--rojo);">470</span></div>
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$3.77M</span></div>
+        <div class="mes-highlight-item"><label>CPL real</label><span style="color:var(--verde);">$8.029</span></div>
+        <div class="mes-highlight-item"><label>Google</label><span>$2.27M</span></div>
+        <div class="mes-highlight-item"><label>Meta</label><span>$1.50M</span></div>
+      </div>
+      <p style="font-size:15px; color:var(--texto-gris); line-height:1.8; margin-bottom:16px;">Mes récord con 470 leads — un 58.2% más que abril. Tres factores explican el salto: (1) Primera medición completa de todos los canales con Pilot CRM, que reveló que Chile Autos y Mercado Libre aportan 214 leads que antes no se contabilizaban correctamente. (2) Meta Usados corregido como campaña de leads desde el 12 de mayo. (3) Google continúa con buen rendimiento liderado por Destinator y Brand.</p>
+      <div class="info-box"><p><strong>El factor decisivo de mayo:</strong> Pilot CRM permitió ver por primera vez que el 45.5% de los leads vienen de e-commerce (Chile Autos + Mercado Libre) sin inversión publicitaria directa. Esos leads existían antes — simplemente no los estábamos midiendo ni atribuyendo correctamente.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- FUENTES DE LEADS -->
+<section class="seccion" id="leads">
+  <div class="seccion-header">
+    <div class="seccion-num">02</div>
+    <h2 class="seccion-titulo">Fuentes de <span class="acento">Leads</span></h2>
+    <p class="seccion-subtitulo">Desglose completo de los 470 leads de mayo 2026 por canal y sub-canal. Es la primera vez que se tiene esta visibilidad completa gracias a la implementación de Pilot CRM. Antes solo se medían los leads web; ahora se mide todo.</p>
+  </div>
+
+  <div class="kpi-grid kpi-4" style="margin-bottom:2px;">
+    <div class="kpi-card">
+      <div class="kpi-label">Website</div>
+      <div class="kpi-valor">237</div>
+      <div class="kpi-variacion neutro">50.4% del total</div>
+      <div class="kpi-desc">Formularios del sitio web de Gracia Autos. Acá llegan los leads de Google Ads y Meta Ads.</div>
+    </div>
+    <div class="kpi-card highlight">
+      <div class="kpi-label">E-Commerce</div>
+      <div class="kpi-valor">214</div>
+      <div class="kpi-variacion">45.5% sin pauta directa</div>
+      <div class="kpi-desc">Chile Autos y Mercado Libre. Canal gratuito que genera casi la misma cantidad de leads que toda la inversión web.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Showroom</div>
+      <div class="kpi-valor">12</div>
+      <div class="kpi-variacion neutro">2.6% presencial</div>
+      <div class="kpi-desc">Personas que llegaron directamente al local sin contacto previo digital.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">RRSS + Base</div>
+      <div class="kpi-valor">7</div>
+      <div class="kpi-variacion neutro">1.5% combinado</div>
+      <div class="kpi-desc">6 clientes de base existente + 1 contacto por DM de Instagram.</div>
+    </div>
+  </div>
+
+  <div class="tabla-container">
+    <div class="tabla-header" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <span>Canal / Origen</span><span>Leads</span><span>% del total</span><span>Distribución visual</span>
+    </div>
+    <div class="tabla-fila padre" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">🌐 Website</div><div class="leads-num">237</div>
+      <div style="font-size:14px;color:var(--amarillo);font-weight:600;">50.43%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:50.43%;background:var(--amarillo)"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Formulario Mitsubishi — leads de Google Ads + Meta Mitsubishi</div><div>190</div>
+      <div style="font-size:13px;color:var(--texto-gris);">80.17%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:80%"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Formulario Usados Bilbao — leads web división usados</div><div>21</div>
+      <div style="font-size:13px;color:var(--texto-gris);">8.86%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:8.86%"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Full Motors Usados — plataforma del sitio</div><div>16</div>
+      <div style="font-size:13px;color:var(--texto-gris);">6.75%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:6.75%"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Formulario Usados Las Condes</div><div>9</div>
+      <div style="font-size:13px;color:var(--texto-gris);">3.80%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:3.80%"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Formulario Full Motor Las Condes</div><div>1</div>
+      <div style="font-size:13px;color:var(--texto-gris);">0.42%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:0.42%"></div></div></div>
+    </div>
+    <div class="tabla-fila padre" style="grid-template-columns: 2fr 1fr 1fr 1fr;margin-top:2px;">
+      <div class="nombre">🛒 E-Commerce</div><div class="leads-num">214</div>
+      <div style="font-size:14px;color:var(--amarillo);font-weight:600;">45.53%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:45.53%;background:var(--azul)"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Chile Autos Bilbao — portal automotriz, fichas de usados</div><div>114</div>
+      <div style="font-size:13px;color:var(--texto-gris);">53.27%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:53.27%;background:var(--azul)"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Mercado Libre — publicaciones de autos usados</div><div>78</div>
+      <div style="font-size:13px;color:var(--texto-gris);">36.45%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:36.45%;background:var(--azul)"></div></div></div>
+    </div>
+    <div class="tabla-fila hijo" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+      <div class="nombre">Chile Autos Las Condes — segunda sucursal en portal</div><div>22</div>
+      <div style="font-size:13px;color:var(--texto-gris);">10.28%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:10.28%;background:var(--azul)"></div></div></div>
+    </div>
+    <div class="tabla-fila padre" style="grid-template-columns: 2fr 1fr 1fr 1fr;margin-top:2px;">
+      <div class="nombre">🏢 Showroom — contacto presencial espontáneo</div><div class="leads-num">12</div>
+      <div style="font-size:14px;color:var(--amarillo);font-weight:600;">2.55%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:2.55%;background:var(--verde)"></div></div></div>
+    </div>
+    <div class="tabla-fila padre" style="grid-template-columns: 2fr 1fr 1fr 1fr;margin-top:2px;">
+      <div class="nombre">👥 Base de Clientes — clientes existentes que volvieron</div><div class="leads-num">6</div>
+      <div style="font-size:14px;color:var(--amarillo);font-weight:600;">1.28%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:1.28%;background:rgba(255,255,255,0.3)"></div></div></div>
+    </div>
+    <div class="tabla-fila padre" style="grid-template-columns: 2fr 1fr 1fr 1fr;margin-top:2px;">
+      <div class="nombre">📱 RRSS — DM de Instagram (carga manual)</div><div class="leads-num">1</div>
+      <div style="font-size:14px;color:var(--amarillo);font-weight:600;">0.21%</div>
+      <div><div class="barra-wrap"><div class="barra-fill" style="width:0.21%;background:rgba(255,255,255,0.3)"></div></div></div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>El hallazgo más importante de mayo:</strong> El 45.5% de los leads viene de Chile Autos y Mercado Libre sin inversión publicitaria directa. Este canal genera casi tantos leads como toda la pauta web combinada. Antes de Pilot CRM estos leads existían pero no se estaban midiendo ni atribuyendo correctamente — estaban "perdidos" en el sistema. Con esta visibilidad, optimizar las fichas de e-commerce (fotos, descripción, precio, tiempo de respuesta) es la acción de mayor impacto con menor costo para junio.</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- GOOGLE ADS -->
+<section class="seccion" id="google">
+  <div class="seccion-header">
+    <div class="seccion-num">03</div>
+    <h2 class="seccion-titulo">Google <span class="acento">Ads</span></h2>
+    <p class="seccion-subtitulo">Google Ads es el principal generador de leads del ecosistema. Captura a personas que ya están buscando activamente un auto — son usuarios con intención de compra. Selecciona cada mes para ver el rendimiento campaña por campaña.</p>
+  </div>
+
+  <div class="info-box" style="margin-bottom:2px;">
+    <p><strong>Cómo leer esta sección:</strong> Las campañas se ordenan de mejor a peor CPL (costo por lead). Verde = eficiente y recomendado escalar. Amarillo = aceptable, mantener. Rojo = ineficiente, reducir o corregir. El ranking puede cambiar mes a mes según el rendimiento.</p>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tabs-nav">
+      <button class="tab-btn" onclick="cambiarTab('google','ene')">Enero</button>
+      <button class="tab-btn" onclick="cambiarTab('google','feb')">Febrero</button>
+      <button class="tab-btn" onclick="cambiarTab('google','mar')">Marzo</button>
+      <button class="tab-btn" onclick="cambiarTab('google','abr')">Abril</button>
+      <button class="tab-btn active" onclick="cambiarTab('google','may')">Mayo ★</button>
+    </div>
+
+    <div class="tab-panel" id="google-ene">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión</label><span>$1.88M</span></div>
+        <div class="mes-highlight-item"><label>Conversiones</label><span>283</span></div>
+        <div class="mes-highlight-item"><label>CPL promedio</label><span>$6.645</span></div>
+        <div class="mes-highlight-item"><label>Mejor campaña</label><span>Brand $3.715</span></div>
+        <div class="mes-highlight-item"><label>Peor campaña</label><span>PMax Usados $22.090</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Brand Mitsubishi y Destinator lideran con CPL por debajo de $4.000. PMax Usados tiene el CPL más alto pero es su primer período activo. Search Cotizador ya muestra ineficiencia con $13.581 CPL recibiendo presupuesto desproporcionado.</p>
+      <div id="google-barras-ene"></div>
+    </div>
+
+    <div class="tab-panel" id="google-feb">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión</label><span>$1.93M</span></div>
+        <div class="mes-highlight-item"><label>Conversiones</label><span>238</span></div>
+        <div class="mes-highlight-item"><label>CPL promedio</label><span>$8.132</span></div>
+        <div class="mes-highlight-item"><label>Mejor campaña</label><span>Brand $3.612</span></div>
+        <div class="mes-highlight-item"><label>Peor campaña</label><span>Cotizador $10.323</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Peor mes en conversiones Google con solo 238. Brand mantiene su eficiencia. PMax L200 y Tasa tu Auto aportan volumen pero con CPL alto. Destinator no activo en febrero.</p>
+      <div id="google-barras-feb"></div>
+    </div>
+
+    <div class="tab-panel" id="google-mar">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión</label><span>$2.06M</span></div>
+        <div class="mes-highlight-item"><label>Conversiones</label><span>247</span></div>
+        <div class="mes-highlight-item"><label>CPL promedio</label><span>$8.348</span></div>
+        <div class="mes-highlight-item"><label>Mejor campaña</label><span>Destinator $3.644</span></div>
+        <div class="mes-highlight-item"><label>Peor campaña</label><span>PMax Usados $25.970</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Destinator regresa y ya muestra su potencial con $3.644 CPL. Brand sube a $4.688 en un mes más competitivo. PMax Usados en su peor momento del año. Cotizador sigue ineficiente con $9.652.</p>
+      <div id="google-barras-mar"></div>
+    </div>
+
+    <div class="tab-panel" id="google-abr">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión</label><span>$2.14M</span></div>
+        <div class="mes-highlight-item"><label>Conversiones</label><span>319</span></div>
+        <div class="mes-highlight-item"><label>CPL promedio</label><span>$6.731</span></div>
+        <div class="mes-highlight-item"><label>Mejor campaña</label><span>Destinator $3.396</span></div>
+        <div class="mes-highlight-item"><label>Peor campaña</label><span>Cotizador $19.533</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Mejor mes Google hasta la fecha con 319 conversiones. Destinator alcanza su mejor CPL del período ($3.396). Brand también en máximos con 87 conversiones. Cotizador en su peor CPL del año — clara señal de ineficiencia que debe corregirse.</p>
+      <div id="google-barras-abr"></div>
+    </div>
+
+    <div class="tab-panel active" id="google-may">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión</label><span>$2.27M</span></div>
+        <div class="mes-highlight-item"><label>Conversiones</label><span>234</span></div>
+        <div class="mes-highlight-item"><label>CPL promedio</label><span>$9.731</span></div>
+        <div class="mes-highlight-item"><label>Mejor campaña</label><span style="color:var(--verde);">Destinator $5.108</span></div>
+        <div class="mes-highlight-item"><label>Peor campaña</label><span style="color:var(--rojo);">PMax Usados $27.144</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Destinator y Brand siguen siendo el motor del ecosistema. El CPL promedio sube levemente respecto a abril porque PMax Usados y Cotizador siguen arrastrando el promedio hacia arriba. Servicio Técnico y PHEV con 0 conversiones son el principal desperdicio de presupuesto. PMax Tasa tu Auto entrega 33 conversiones a $10.367 — clave para el inventario de usados.</p>
+      <div id="google-barras-may"></div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>Patrón constante en los 5 meses:</strong> Destinator y Brand lideran todos los meses. Cotizador y PMax Usados son ineficientes todos los meses. Servicio Técnico y PHEV nunca convierten. Esto no es coincidencia — son problemas estructurales que deben corregirse en junio redirigiendo ~$80.000 CLP/mes hacia las campañas ganadoras.</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- META ADS -->
+<section class="seccion" id="meta">
+  <div class="seccion-header">
+    <div class="seccion-num">04</div>
+    <h2 class="seccion-titulo">Meta <span class="acento">Ads</span></h2>
+    <p class="seccion-subtitulo">Meta Ads cumple un rol doble: generar demanda (awareness) y capturar leads (conversión). El error de configuración de Meta Usados durante 4 meses costó más de $1.1M CLP en leads no generados. Corregido en mayo.</p>
+  </div>
+
+  <div class="info-box" style="margin-bottom:2px;">
+    <p><strong>Cómo funciona Meta en el funnel:</strong> Las campañas de <strong>Awareness</strong> muestran videos a personas que aún no conocen la marca — generan alcance masivo a CPM bajo. Las campañas de <strong>Conversión</strong> impactan a personas que ya mostraron interés y buscan que dejen sus datos. Ambas son necesarias — una sin la otra es incompleto.</p>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tabs-nav">
+      <button class="tab-btn" onclick="cambiarTab('meta','ene')">Enero</button>
+      <button class="tab-btn" onclick="cambiarTab('meta','feb')">Febrero</button>
+      <button class="tab-btn" onclick="cambiarTab('meta','mar')">Marzo</button>
+      <button class="tab-btn" onclick="cambiarTab('meta','abr')">Abril</button>
+      <button class="tab-btn active" onclick="cambiarTab('meta','may')">Mayo ★</button>
+    </div>
+
+    <div class="tab-panel" id="meta-ene">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$1.01M</span></div>
+        <div class="mes-highlight-item"><label>Leads Mitsubishi</label><span>83</span></div>
+        <div class="mes-highlight-item"><label>CPL Mitsubishi</label><span>$8.007</span></div>
+        <div class="mes-highlight-item"><label>Awareness</label><span>No activo</span></div>
+        <div class="mes-highlight-item"><label>Leads Usados</label><span style="color:var(--rojo);">0</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Sin campañas de awareness activas. La inversión de $347.981 en Meta Usados se destina a tráfico (Landing Page Views) — genera visitas al sitio pero no leads. El error de objetivo ya estaba presente desde el inicio del año.</p>
+      <div id="meta-barras-ene"></div>
+      <div class="info-box" style="margin-top:20px;"><p><strong>El problema invisble de enero:</strong> Cuando Meta optimiza para "tráfico", busca personas que hagan clic. Cuando optimiza para "leads", busca personas que conviertan. Son audiencias distintas. $347.981 gastados en visitas = 0 leads de Meta Usados en enero.</p></div>
+    </div>
+
+    <div class="tab-panel" id="meta-feb">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$772K</span></div>
+        <div class="mes-highlight-item"><label>Leads Mitsubishi</label><span>46</span></div>
+        <div class="mes-highlight-item"><label>CPL Mitsubishi</label><span>$7.533</span></div>
+        <div class="mes-highlight-item"><label>Awareness activo</label><span>$246K</span></div>
+        <div class="mes-highlight-item"><label>Leads Usados</label><span style="color:var(--rojo);">0</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Primera vez con awareness activo — Mitsubishi ($109K) y Usados ($137K). El alcance combinado supera las 500.000 personas. Mitsubishi genera 46 leads pero la caída respecto a enero se explica por menor inversión en conversión. Usados sigue sin leads por objetivo incorrecto.</p>
+      <div id="meta-barras-feb"></div>
+    </div>
+
+    <div class="tab-panel" id="meta-mar">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$1.27M</span></div>
+        <div class="mes-highlight-item"><label>Leads Mitsubishi</label><span>64</span></div>
+        <div class="mes-highlight-item"><label>CPL Mitsubishi</label><span>$8.445</span></div>
+        <div class="mes-highlight-item"><label>Awareness</label><span>$425K</span></div>
+        <div class="mes-highlight-item"><label>Leads Usados</label><span style="color:var(--rojo);">0</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Awareness escala fuerte — $193K Mitsubishi y $232K Usados, con alcance total de más de 700.000 personas. Mitsubishi mejora a 64 leads. Usados sigue acumulando presupuesto en tráfico sin retorno en leads. $309K gastados en visitas sin convertir.</p>
+      <div id="meta-barras-mar"></div>
+    </div>
+
+    <div class="tab-panel" id="meta-abr">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$1.37M</span></div>
+        <div class="mes-highlight-item"><label>Leads Mitsubishi</label><span>108</span></div>
+        <div class="mes-highlight-item"><label>CPL Mitsubishi</label><span>$5.777</span></div>
+        <div class="mes-highlight-item"><label>Awareness</label><span>$457K</span></div>
+        <div class="mes-highlight-item"><label>Leads Usados</label><span style="color:var(--rojo);">0</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Mejor mes Meta hasta la fecha. Destinator como campaña estrella con 50 leads a $2.779 CPL — el mejor de todo el ecosistema. Leads Videos (retargeting) funciona bien con 21 leads. L200 y SUV con rendimiento más bajo. Usados sigue sin leads — último mes con ese error.</p>
+      <div id="meta-barras-abr"></div>
+    </div>
+
+    <div class="tab-panel active" id="meta-may">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inversión total</label><span>$1.50M</span></div>
+        <div class="mes-highlight-item"><label>Leads Mitsubishi</label><span style="color:var(--verde);">105</span></div>
+        <div class="mes-highlight-item"><label>CPL Mitsubishi</label><span style="color:var(--verde);">$5.493</span></div>
+        <div class="mes-highlight-item"><label>Leads Usados</label><span>7 (aprendizaje)</span></div>
+        <div class="mes-highlight-item"><label>Alcance total</label><span>748K personas</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Primer mes con Meta Usados correctamente configurado como campaña de leads (desde el 12/05). Los 7 leads de usados representan el inicio — las campañas estaban en fase de aprendizaje durante las últimas 3 semanas de mayo. Junio mostrará el rendimiento real. Destinator mantiene su liderazgo con 53 leads a $3.141 CPL.</p>
+      <div id="meta-barras-may"></div>
+      <div class="info-box" style="margin-top:20px;"><p><strong>Por qué el CPL de Usados es tan alto en mayo:</strong> Durante la fase de aprendizaje Meta prueba muchas audiencias sin optimizar. Es normal tener CPL de $40.000–$46.000 en las primeras 2 semanas. Una vez que la campaña acumula 50 conversiones, Meta empieza a optimizar y el CPL cae significativamente. Junio tendrá los primeros datos reales.</p></div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>Costo total del error de configuración:</strong> Durante enero–abril, Meta Usados invirtió aproximadamente $1.135.647 CLP con objetivo de tráfico. Con un CPL esperado de $10.000–$15.000 para usados, eso podría haber generado entre 75 y 113 leads adicionales que nunca existieron. Este es el costo real de tener una campaña mal configurada durante 4 meses.</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- INSTAGRAM -->
+<section class="seccion" id="instagram">
+  <div class="seccion-header">
+    <div class="seccion-num">05</div>
+    <h2 class="seccion-titulo">Instagram <span class="acento">2026</span></h2>
+    <p class="seccion-subtitulo">Desde diciembre 2025 se implementó una estrategia de contenido de video con jornadas de grabación mensuales. El impacto en alcance, seguidores y engagement es medible y positivo.</p>
+  </div>
+
+  <div class="kpi-grid kpi-4" style="margin-bottom:2px;">
+    <div class="kpi-card">
+      <div class="kpi-label">Seguidores al 4 Jun</div>
+      <div class="kpi-valor">3.712</div>
+      <div class="kpi-variacion positivo">↑ +199 desde mayo</div>
+      <div class="kpi-desc">Total acumulado de seguidores en Instagram. El crecimiento se acelera a medida que el awareness aumenta.</div>
+    </div>
+    <div class="kpi-card highlight">
+      <div class="kpi-label">Nuevos en 2026</div>
+      <div class="kpi-valor">771+</div>
+      <div class="kpi-variacion">+52.1% crecimiento</div>
+      <div class="kpi-desc">Nuevos seguidores desde enero. La tendencia se acelera en abril-mayo con más awareness activo.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Alcance últimos 28 días</div>
+      <div class="kpi-valor">577K</div>
+      <div class="kpi-variacion positivo">+14.2%</div>
+      <div class="kpi-desc">Personas únicas que vieron el contenido. El 99.6% son no seguidores — el contenido llega más allá de la comunidad.</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Vistas de Contenido</div>
+      <div class="kpi-valor">2M</div>
+      <div class="kpi-variacion positivo">+37.6%</div>
+      <div class="kpi-desc">Total de veces que se vio el contenido. Una misma persona puede verlo múltiples veces.</div>
+    </div>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tabs-nav">
+      <button class="tab-btn" onclick="cambiarTab('ig','periodo')">Ene–May Resumen</button>
+      <button class="tab-btn active" onclick="cambiarTab('ig','may')">Mayo–Jun ★</button>
+      <button class="tab-btn" onclick="cambiarTab('ig','demo')">Audiencia</button>
+      <button class="tab-btn" onclick="cambiarTab('ig','aware')">Videos Awareness</button>
+      <button class="tab-btn" onclick="cambiarTab('ig','leads')">Videos Leads</button>
+    </div>
+
+    <div class="tab-panel" id="ig-periodo">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Inicio 2026</label><span>~2.941</span></div>
+        <div class="mes-highlight-item"><label>Al 12 mayo</label><span>3.513</span></div>
+        <div class="mes-highlight-item"><label>Al 4 junio</label><span>3.712</span></div>
+        <div class="mes-highlight-item"><label>Crecimiento neto</label><span>+771</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.8;margin-bottom:20px;">El crecimiento de seguidores en 2026 tiene tres fases claras: enero-febrero con crecimiento orgánico moderado sin awareness, marzo-abril con aceleración al activarse las campañas de awareness en Meta, y mayo-junio con el pico más alto de seguidores diarios (hasta 40 en un día) correlacionado con mayor inversión en contenido y awareness.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">Ene–Feb: crecimiento orgánico sin awareness</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~120 nuevos</span></div><div class="barra-wrap"><div class="barra-fill" style="width:15%;background:rgba(255,255,255,0.3)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">Mar–Abr: awareness activo, crecimiento acelerado</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~300 nuevos</span></div><div class="barra-wrap"><div class="barra-fill" style="width:40%;background:var(--rojo)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">May–Jun: pico máximo diario, momentum sostenido</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~350+ nuevos</span></div><div class="barra-wrap"><div class="barra-fill" style="width:100%;background:var(--rojo)"></div></div></div>
+      </div>
+    </div>
+
+    <div class="tab-panel active" id="ig-may">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Follows (últimos 28d)</label><span>251</span></div>
+        <div class="mes-highlight-item"><label>Unfollows</label><span>41</span></div>
+        <div class="mes-highlight-item"><label>Neto últimos 28d</label><span style="color:var(--verde);">+210</span></div>
+        <div class="mes-highlight-item"><label>Interactions</label><span>1.800 (+45.3%)</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.8;margin-bottom:20px;">El pico más alto de seguidores diarios se registró entre fines de abril y principios de mayo, llegando a casi 40 nuevos seguidores en un día. Esto coincide exactamente con el período de mayor inversión en awareness. La correlación es directa y confirma que el awareness no solo genera leads — también construye comunidad.</p>
+      <div class="info-box"><p><strong>Interactions subió 45.3%:</strong> Interactions incluye likes, comentarios, guardados y compartidos. Un aumento tan fuerte indica que el contenido es cada vez más relevante para la audiencia. Esto también mejora el algoritmo — Instagram prioriza el contenido con más interacciones y lo muestra a más personas orgánicamente.</p></div>
+    </div>
+
+    <div class="tab-panel" id="ig-demo">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Género</label><span>66% H / 34% M</span></div>
+        <div class="mes-highlight-item"><label>Edad principal</label><span>35–44 años</span></div>
+        <div class="mes-highlight-item"><label>Ciudad top</label><span>Santiago 57%</span></div>
+        <div class="mes-highlight-item"><label>País</label><span>Chile 94.9%</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">La audiencia está perfectamente alineada con el perfil comprador ideal de Gracia Autos — hombres de 35-44 años en Santiago con capacidad de compra. El 94.9% de Chile confirma que la segmentación geográfica está funcionando correctamente.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">Hombres 35–44 — buyer persona principal</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~26%</span></div><div class="barra-wrap"><div class="barra-fill" style="width:26%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">Hombres 25–34 — comprador joven emergente</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~20%</span></div><div class="barra-wrap"><div class="barra-fill" style="width:20%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">Mujeres 35–44 — segmento en crecimiento</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~11%</span></div><div class="barra-wrap"><div class="barra-fill" style="width:11%;background:var(--azul)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;">Mujeres 25–34</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;">~8%</span></div><div class="barra-wrap"><div class="barra-fill" style="width:8%;background:var(--azul)"></div></div></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="ig-aware">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Alcance Mayo</label><span>748K</span></div>
+        <div class="mes-highlight-item"><label>CPM Promedio</label><span>$457</span></div>
+        <div class="mes-highlight-item"><label>Inversión</label><span>$459K</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Las campañas de awareness usan los videos de mejor performance histórico. En mayo se renovaron los conjuntos con videos de mayor alcance acumulado. El CPM de $437–$476 es competitivo para el rubro automotriz en Chile.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">Mitsubishi Set A — 251.361 personas únicas alcanzadas</span><span style="font-size:13px;color:var(--texto-gris);">CPM $465 — $116.809</span></div><div class="barra-wrap"><div class="barra-fill" style="width:80%;background:var(--verde)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">Mitsubishi Set B — 245.512 personas únicas alcanzadas</span><span style="font-size:13px;color:var(--texto-gris);">CPM $476 — $116.753</span></div><div class="barra-wrap"><div class="barra-fill" style="width:77%;background:var(--verde)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">Usados Set B — 221.450 personas únicas alcanzadas</span><span style="font-size:13px;color:var(--texto-gris);">CPM $437 — $96.730</span></div><div class="barra-wrap"><div class="barra-fill" style="width:72%;background:var(--azul)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">Usados Set A — 214.715 personas únicas alcanzadas</span><span style="font-size:13px;color:var(--texto-gris);">CPM $451 — $96.816</span></div><div class="barra-wrap"><div class="barra-fill" style="width:68%;background:var(--azul)"></div></div></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="ig-leads">
+      <div class="mes-highlight">
+        <div class="mes-highlight-item"><label>Total leads videos</label><span>104</span></div>
+        <div class="mes-highlight-item"><label>Mejor video</label><span>Destinator $3.141</span></div>
+        <div class="mes-highlight-item"><label>Inversión</label><span>$198.767</span></div>
+      </div>
+      <p style="font-size:14px;color:var(--texto-gris);line-height:1.7;margin-bottom:20px;">Los videos leads de Mitsubishi muestran que el contenido educativo convierte mejor que el contenido de producto puro. Destinator y Leads Videos (retargeting) lideran con diferencia. Los videos de usados están en fase de aprendizaje — resultados reales disponibles en junio.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">Destinator — video de producto, alto engagement</span><span style="font-size:13px;color:var(--texto-gris);">53 leads / $3.141 CPL</span></div><div class="barra-wrap"><div class="barra-fill" style="width:100%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">Leads Videos Mitsubishi — retargeting audiencias calientes</span><span style="font-size:13px;color:var(--texto-gris);">34 leads / $5.846 CPL</span></div><div class="barra-wrap"><div class="barra-fill" style="width:64%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">L200 — modelo camioneta</span><span style="font-size:13px;color:var(--texto-gris);">14 leads / $9.711 CPL</span></div><div class="barra-wrap"><div class="barra-fill" style="width:26%;background:var(--amarillo)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;">SUV genérico</span><span style="font-size:13px;color:var(--texto-gris);">3 leads / $22.042 CPL</span></div><div class="barra-wrap"><div class="barra-fill" style="width:5%;background:var(--rojo)"></div></div></div>
+        <div style="margin-top:4px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;color:var(--texto-gris);">Video Leads Usados — en aprendizaje</span><span style="font-size:13px;color:var(--texto-gris);">4 leads / $41.363 CPL</span></div><div class="barra-wrap"><div class="barra-fill" style="width:2%;background:rgba(255,255,255,0.2)"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- HALLAZGOS CLAVE -->
+<section class="seccion" id="hallazgos">
+  <div class="seccion-header">
+    <div class="seccion-num">06</div>
+    <h2 class="seccion-titulo">Hallazgos <span class="acento">Clave</span></h2>
+    <p class="seccion-subtitulo">Los seis descubrimientos más importantes del período enero–mayo 2026 y su impacto real en el negocio.</p>
+  </div>
+  <div class="hallazgos-grid">
+    <div class="hallazgo-card">
+      <span class="hallazgo-icon">📈</span>
+      <div class="hallazgo-titulo">Mayo fue el mejor mes del año</div>
+      <div class="hallazgo-desc">470 leads — un 58.2% más que abril y más del doble de febrero. La combinación de mayor inversión bien distribuida, campañas corregidas y primera medición completa con Pilot CRM rompió todos los récords anteriores del año.</div>
+      <div class="hallazgo-num">+58%</div>
+      <div class="hallazgo-impacto"><strong>Impacto:</strong> Mayo establece un nuevo piso. El objetivo de 400 leads mensuales ya fue superado — ahora el objetivo es sostener y mejorar este nivel.</div>
+    </div>
+    <div class="hallazgo-card">
+      <span class="hallazgo-icon">🔧</span>
+      <div class="hallazgo-titulo">Meta Usados estuvo mal configurado 4 meses</div>
+      <div class="hallazgo-desc">Durante enero–abril se invirtieron $1.135.647 CLP en Meta Usados con objetivo de tráfico en lugar de leads. Generó 9.046–11.892 visitas al mes pero cero leads. El error fue detectado y corregido el 12 de mayo.</div>
+      <div class="hallazgo-num">$1.1M</div>
+      <div class="hallazgo-impacto"><strong>Impacto estimado:</strong> Con CPL de $10.000–$15.000, esa inversión podría haber generado entre 75 y 113 leads adicionales durante el período.</div>
+    </div>
+    <div class="hallazgo-card">
+      <span class="hallazgo-icon">🛒</span>
+      <div class="hallazgo-titulo">E-Commerce genera el 45% sin pauta</div>
+      <div class="hallazgo-desc">Chile Autos y Mercado Libre aportaron 214 leads en mayo sin inversión publicitaria directa. Este canal existía antes pero no se medía correctamente. Con Pilot CRM se visibilizó por primera vez su magnitud real.</div>
+      <div class="hallazgo-num">214</div>
+      <div class="hallazgo-impacto"><strong>Oportunidad:</strong> Optimizar fichas, fotos y tiempos de respuesta en estos portales puede aumentar estos leads a 300+ sin costo adicional de pauta.</div>
+    </div>
+    <div class="hallazgo-card">
+      <span class="hallazgo-icon">⭐</span>
+      <div class="hallazgo-titulo">Destinator es el modelo estrella</div>
+      <div class="hallazgo-desc">En todos los meses donde estuvo activo, Destinator lideró el ranking de CPL tanto en Google ($3.396–$5.108) como en Meta ($2.779–$3.141). Es la campaña con mejor relación inversión-resultado de todo el ecosistema publicitario.</div>
+      <div class="hallazgo-num">$3.141</div>
+      <div class="hallazgo-impacto"><strong>Acción:</strong> Escalar Destinator en Google y Meta en junio. Ambas campañas están limitadas por presupuesto — hay demanda no capturada.</div>
+    </div>
+    <div class="hallazgo-card">
+      <span class="hallazgo-icon">💸</span>
+      <div class="hallazgo-titulo">$48K mensuales sin retorno en Google</div>
+      <div class="hallazgo-desc">Servicio Técnico (~$34K) y PHEV (~$14K) acumulan $48.000 CLP mensuales en Google sin generar ninguna conversión en los 5 meses del período. Search Cotizador tiene el CPL más alto de la cuenta con la segunda mayor inversión.</div>
+      <div class="hallazgo-num">$48K</div>
+      <div class="hallazgo-impacto"><strong>Acción inmediata:</strong> Pausar o reducir al mínimo Servicio Técnico y PHEV. Redistribuir los $48K hacia Brand y Destinator que están limitados por presupuesto.</div>
+    </div>
+    <div class="hallazgo-card">
+      <span class="hallazgo-icon">📱</span>
+      <div class="hallazgo-titulo">Instagram creció 52% en 2026</div>
+      <div class="hallazgo-desc">771+ nuevos seguidores (3.712 al 4 de junio), 2M de vistas de contenido, 577K de alcance en los últimos 28 días. El contenido de video implementado desde diciembre 2025 generó un alcance desproporcionado al tamaño de la cuenta.</div>
+      <div class="hallazgo-num">3.712</div>
+      <div class="hallazgo-impacto"><strong>Contexto:</strong> El 99.6% de las vistas vienen de no seguidores — el contenido llega más allá de la comunidad existente, validando la estrategia de video.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- PLAN JUNIO -->
+<section class="seccion" id="plan">
+  <div class="seccion-header">
+    <div class="seccion-num">07</div>
+    <h2 class="seccion-titulo">Plan <span class="acento">Junio</span></h2>
+    <p class="seccion-subtitulo">Cuatro líneas de acción concretas para superar los 470 leads de mayo y alcanzar el objetivo de 500+ leads mensuales sostenidos.</p>
+  </div>
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-num">01</div>
+      <div class="badge badge-rojo">Urgente — esta semana</div>
+      <div class="plan-titulo">Redistribuir Presupuesto Google</div>
+      <div class="plan-objetivo">Objetivo: bajar CPL promedio de $9.731 a menos de $7.500</div>
+      <ul class="plan-items">
+        <li>Pausar Servicio Técnico ($34K/mes sin conversiones) y redirigir a Brand o Destinator</li>
+        <li>Reducir PHEV al mínimo ($2K/mes solo para presencia) — ahorra $12K para campañas eficientes</li>
+        <li>Reducir Search Cotizador de $236K a $120K — CPL de $12.864 no justifica esa inversión</li>
+        <li>Aumentar Destinator en $60K — está limitado por presupuesto con el mejor CPL del ecosistema</li>
+        <li>Aumentar Brand en $40K — también limitado por presupuesto con CPL de $7.519</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-num">02</div>
+      <div class="badge badge-amarillo">Esta semana</div>
+      <div class="plan-titulo">Optimizar E-Commerce</div>
+      <div class="plan-objetivo">Objetivo: escalar de 214 a 300+ leads sin inversión adicional en pauta</div>
+      <ul class="plan-items">
+        <li>Auditar todas las fichas de Chile Autos Bilbao — fotos actualizadas, descripción completa, precio visible</li>
+        <li>Hacer lo mismo en Chile Autos Las Condes — actualmente tiene CPM de 4.5 horas vs 2.6 de Bilbao</li>
+        <li>Revisar y optimizar publicaciones de Mercado Libre — 78 leads son una base sólida para escalar</li>
+        <li>Reducir tiempo de respuesta de Chile Autos Las Condes de 4.5h a menos de 1h — leads perdidos por demora</li>
+        <li>Agregar más fotos de calidad y detalles de financiamiento en todas las fichas</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-num">03</div>
+      <div class="badge badge-azul">Semana 2 de junio</div>
+      <div class="plan-titulo">Evaluar Meta Usados Post-Aprendizaje</div>
+      <div class="plan-objetivo">Objetivo: confirmar CPL real y ajustar presupuestos para la segunda mitad del mes</div>
+      <ul class="plan-items">
+        <li>Revisar resultados de los 3 ad sets al cumplir 50 conversiones o 14 días activos</li>
+        <li>Si Video Leads tiene CPL bajo $15.000 → aumentar presupuesto</li>
+        <li>Si Cotizador no convierte en 2 semanas → revisar copy, imágenes y URL de destino</li>
+        <li>Si Usados (imágenes) funciona → considerar agregar más autos en el creative</li>
+        <li>No hacer cambios antes — interrumpir el aprendizaje reinicia el proceso desde cero</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-num">04</div>
+      <div class="badge badge-verde">Mes completo</div>
+      <div class="plan-titulo">Instagram y Contenido Orgánico</div>
+      <div class="plan-objetivo">Objetivo: 200 nuevos seguidores netos en junio, mantener momentum</div>
+      <ul class="plan-items">
+        <li>Aumentar frecuencia de stories — mínimo 5 días por semana para mantener presencia en el feed</li>
+        <li>Probar reels de menos de 30 segundos con gancho visual en los primeros 2 segundos</li>
+        <li>Documentar entregas de autos — el contenido más auténtico y con mejor engagement orgánico</li>
+        <li>Responder todos los DMs y comentarios dentro de las 2 horas — señal positiva para el algoritmo</li>
+        <li>Gestionar acceso a Google Analytics con Marca Futuro para medir tráfico orgánico vs pagado</li>
+      </ul>
+    </div>
+  </div>
+  <div class="insight-box">
+    <p><strong>Proyección junio con estas acciones:</strong> Google optimizado puede mantener ~230 leads web de Mitsubishi. Meta Usados saliendo del aprendizaje puede aportar 30–50 leads adicionales. E-commerce optimizado puede subir de 214 a 280–300. Showroom y base de clientes estables en ~18. <strong>Total proyectado: 530–600 leads.</strong> El objetivo de 500 es conservador si se ejecutan estas acciones.</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- CIERRE -->
+<section class="cierre">
+  <div>
+    <h2>El mejor mes<br>fue mayo.<br>Junio<br>viene mejor.</h2>
+    <p class="cierre-sub">Con las correcciones implementadas, el e-commerce visibilizado como canal y el presupuesto mejor distribuido, la proyección es clara. La tendencia apunta a 500+ leads en junio.</p>
+    <div class="linea-datos">
+      <div class="linea-dato"><label>Meta de junio</label><span>500+ leads</span></div>
+      <div class="linea-dato"><label>CPL objetivo</label><span>&lt; $7.500</span></div>
+      <div class="linea-dato"><label>Seguidores meta</label><span>3.900+</span></div>
+      <div class="linea-dato"><label>Preparado por</label><span>Macarena Gracia</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+function cambiarTab(seccion, mes) {
+  const ids = ['ene','feb','mar','abr','may','demo','aware','periodo','leads'];
+  ids.forEach(id => {
+    const el = document.getElementById(`${seccion}-${id}`);
+    if (el) el.classList.remove('active');
+  });
+  const panel = document.getElementById(`${seccion}-${mes}`);
+  if (panel) panel.classList.add('active');
+
+  document.querySelectorAll('.tabs-nav').forEach(nav => {
+    const btns = nav.querySelectorAll('.tab-btn');
+    const hasSection = Array.from(btns).some(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${seccion}'`));
+    if (hasSection) {
+      btns.forEach(b => {
+        b.classList.remove('active');
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${seccion}'`) && b.getAttribute('onclick').includes(`'${mes}'`)) {
+          b.classList.add('active');
+        }
+      });
+    }
+  });
+}
+
+// CHART GENERAL
+const mesesData = [
+  {mes:'Ene',leads:226,cpl:12806},{mes:'Feb',leads:185,cpl:14652},
+  {mes:'Mar',leads:213,cpl:15685},{mes:'Abr',leads:297,cpl:11855},
+  {mes:'May',leads:470,cpl:8029},
+];
+const maxL = Math.max(...mesesData.map(m=>m.leads));
+const chart = document.getElementById('chartGeneral');
+mesesData.forEach((m,i)=>{
+  const pct = (m.leads/maxL)*100;
+  const isMay = i===4;
+  const col = document.createElement('div');
+  col.className = 'barra-col';
+  col.innerHTML = `
+    <div class="barra-col-valor" style="color:${isMay?'var(--rojo)':'var(--blanco)'}">${m.leads}</div>
+    <div class="barra-col-barra" style="height:${pct}%;background:${isMay?'var(--rojo)':'rgba(255,255,255,0.12)'}"></div>
+    <div class="barra-col-label">${m.mes}</div>
+    <div style="font-size:11px;color:var(--texto-gris);">$${(m.cpl/1000).toFixed(1)}K CPL</div>
+  `;
+  chart.appendChild(col);
+});
+
+// DATOS GOOGLE
+const googleData = {
+  ene:[
+    {nombre:'Outlander New',conv:23,cpl:2784,tipo:'verde'},
+    {nombre:'Brand Mitsubishi',conv:52,cpl:3715,tipo:'verde'},
+    {nombre:'Destinator',conv:22,cpl:3462,tipo:'verde'},
+    {nombre:'Eclipse Cross',conv:15,cpl:3933,tipo:'verde'},
+    {nombre:'PMax SUV',conv:46,cpl:5739,tipo:'amarillo'},
+    {nombre:'PMax L200',conv:35,cpl:8417,tipo:'amarillo'},
+    {nombre:'PMax Tasa tu Auto',conv:34,cpl:8220,tipo:'amarillo'},
+    {nombre:'Search Cotizador',conv:13,cpl:13581,tipo:'rojo'},
+    {nombre:'PMax Usados',conv:9,cpl:22090,tipo:'rojo'},
+  ],
+  feb:[
+    {nombre:'Brand Mitsubishi',conv:49,cpl:3612,tipo:'verde'},
+    {nombre:'Outlander Sport',conv:14,cpl:4055,tipo:'verde'},
+    {nombre:'PMax SUV',conv:39,cpl:6546,tipo:'amarillo'},
+    {nombre:'PMax L200',conv:39,cpl:8377,tipo:'amarillo'},
+    {nombre:'PMax Tasa tu Auto',conv:34,cpl:8220,tipo:'amarillo'},
+    {nombre:'Search Cotizador',conv:33,cpl:10323,tipo:'rojo'},
+  ],
+  mar:[
+    {nombre:'Destinator',conv:22,cpl:3644,tipo:'verde'},
+    {nombre:'Eclipse Cross',conv:9,cpl:4843,tipo:'verde'},
+    {nombre:'Brand Mitsubishi',conv:56,cpl:4688,tipo:'verde'},
+    {nombre:'PMax L200',conv:47,cpl:7697,tipo:'amarillo'},
+    {nombre:'PMax Tasa tu Auto',conv:25,cpl:11840,tipo:'amarillo'},
+    {nombre:'Search Cotizador',conv:40,cpl:9652,tipo:'rojo'},
+    {nombre:'PMax Usados',conv:9,cpl:25970,tipo:'rojo'},
+  ],
+  abr:[
+    {nombre:'Destinator',conv:52,cpl:3396,tipo:'verde'},
+    {nombre:'Brand Mitsubishi',conv:87,cpl:3655,tipo:'verde'},
+    {nombre:'PMax SUV',conv:29,cpl:4313,tipo:'verde'},
+    {nombre:'Outlander Sport',conv:26,cpl:4602,tipo:'verde'},
+    {nombre:'Eclipse Cross',conv:8,cpl:5352,tipo:'verde'},
+    {nombre:'PMax L200',conv:51,cpl:6699,tipo:'amarillo'},
+    {nombre:'PMax Tasa tu Auto',conv:20,cpl:14917,tipo:'rojo'},
+    {nombre:'Search Cotizador',conv:18,cpl:19533,tipo:'rojo'},
+  ],
+  may:[
+    {nombre:'Destinator',conv:39,cpl:5108,tipo:'verde'},
+    {nombre:'Eclipse Cross',conv:10,cpl:5803,tipo:'verde'},
+    {nombre:'PMax SUV',conv:17,cpl:7416,tipo:'verde'},
+    {nombre:'Brand Mitsubishi',conv:61,cpl:7519,tipo:'verde'},
+    {nombre:'Outlander Sport',conv:15,cpl:8070,tipo:'amarillo'},
+    {nombre:'Search L200',conv:12,cpl:9181,tipo:'amarillo'},
+    {nombre:'PMax Tasa tu Auto',conv:33,cpl:10367,tipo:'amarillo'},
+    {nombre:'Search Cotizador',conv:18,cpl:12864,tipo:'rojo'},
+    {nombre:'PMax Usados',conv:6,cpl:27144,tipo:'rojo'},
+  ]
+};
+
+const metaData = {
+  ene:[{nombre:'Mitsubishi Conversión total',leads:83,cpl:8007,tipo:'verde',nota:'83 leads'}],
+  feb:[
+    {nombre:'Mitsubishi Conversión',leads:46,cpl:7533,tipo:'verde',nota:'46 leads'},
+    {nombre:'Awareness Mitsubishi',leads:0,cpl:0,tipo:'neutro',nota:'CPM $426 / 256K alcance'},
+    {nombre:'Awareness Usados',leads:0,cpl:0,tipo:'neutro',nota:'CPM $439 / 312K alcance'},
+  ],
+  mar:[
+    {nombre:'Mitsubishi Conversión',leads:64,cpl:8445,tipo:'amarillo',nota:'64 leads'},
+    {nombre:'Awareness Mitsubishi',leads:0,cpl:0,tipo:'neutro',nota:'CPM $575 / 335K alcance'},
+    {nombre:'Awareness Usados',leads:0,cpl:0,tipo:'neutro',nota:'CPM $634 / 366K alcance'},
+  ],
+  abr:[
+    {nombre:'Destinator',leads:50,cpl:2779,tipo:'verde',nota:'mejor CPL del ecosistema'},
+    {nombre:'Leads Videos (Retargeting)',leads:21,cpl:6649,tipo:'verde',nota:'audiencias calientes'},
+    {nombre:'L200',leads:18,cpl:8857,tipo:'amarillo',nota:'rendimiento medio'},
+    {nombre:'SUV genérico',leads:12,cpl:11779,tipo:'rojo',nota:'bajo rendimiento'},
+  ],
+  may:[
+    {nombre:'Destinator',leads:53,cpl:3141,tipo:'verde',nota:'mejor CPL todo ecosistema'},
+    {nombre:'Leads Videos Mitsubishi',leads:34,cpl:5846,tipo:'verde',nota:'retargeting'},
+    {nombre:'L200',leads:14,cpl:9711,tipo:'amarillo',nota:'rendimiento estable'},
+    {nombre:'SUV',leads:3,cpl:22042,tipo:'rojo',nota:'bajo rendimiento'},
+    {nombre:'Usados Video Leads',leads:4,cpl:41363,tipo:'rojo',nota:'en aprendizaje — normal'},
+    {nombre:'Usados Imágenes',leads:3,cpl:46442,tipo:'rojo',nota:'en aprendizaje — normal'},
+    {nombre:'Cotizador',leads:0,cpl:0,tipo:'neutro',nota:'en aprendizaje'},
+  ]
+};
+
+function renderBarras(containerId, data, metrica) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const colors = {verde:'var(--verde)',amarillo:'var(--amarillo)',rojo:'var(--rojo)',neutro:'rgba(255,255,255,0.15)'};
+  const vals = data.filter(d=>d[metrica]>0).map(d=>d[metrica]);
+  const maxVal = vals.length ? Math.max(...vals) : 1;
+  data.forEach(d=>{
+    const pct = d[metrica]>0 ? (d[metrica]/maxVal)*100 : 3;
+    const div = document.createElement('div');
+    div.style.cssText = 'margin-bottom:16px;';
+    const valStr = metrica==='cpl' ? `$${d.cpl.toLocaleString('es-CL')} CPL` : `${d.leads} leads`;
+    const subStr = metrica==='cpl' ? `${d.conv} conv` : (d.nota||'');
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:13px;flex:1;min-width:120px;">${d.nombre}</span>
+        <div style="display:flex;gap:12px;align-items:center;flex-shrink:0;">
+          <span style="font-size:12px;color:var(--texto-gris);">${subStr}</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:${colors[d.tipo]};">${valStr}</span>
+        </div>
+      </div>
+      <div class="barra-wrap"><div class="barra-fill" style="width:${pct}%;background:${colors[d.tipo]};"></div></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+['ene','feb','mar','abr','may'].forEach(mes=>renderBarras(`google-barras-${mes}`,googleData[mes],'cpl'));
+['ene','feb','mar','abr','may'].forEach(mes=>renderBarras(`meta-barras-${mes}`,metaData[mes],'leads'));
+</script>
+</body>
+</html>
